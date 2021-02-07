@@ -19,7 +19,7 @@ class CreateTransactionService {
     type,
     value,
     titleCategory,
-  }: Request): Promise<void> {
+  }: Request): Promise<Transaction> {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
     const createCategoryService = new CreateCategoryService();
@@ -31,11 +31,12 @@ class CreateTransactionService {
       title,
       type,
       value,
-      category_id: category,
+      category,
     });
 
     await transactionsRepository.save(transaction);
-    console.log(transaction);
+
+    return transaction;
   }
 }
 

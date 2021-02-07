@@ -22,12 +22,24 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  // @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column('decimal', {
+    precision: 10,
+    scale: 2,
+    transformer: {
+      to(value) {
+        return value;
+      },
+      from(value) {
+        return parseFloat(value);
+      },
+    },
+  })
   value: number;
 
   @ManyToOne(() => Category)
-  @JoinColumn({ name: 'category_id' })
-  category_id: Category;
+  @JoinColumn({ name: 'category' })
+  category: Category;
 
   @CreateDateColumn()
   created_at: Date;

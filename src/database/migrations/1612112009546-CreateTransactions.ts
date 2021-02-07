@@ -30,8 +30,8 @@ export class CreateTransactions1612112009546 implements MigrationInterface {
             scale: 2,
           },
           {
-            name: 'category_id',
-            type: 'varchar',
+            name: 'category',
+            type: 'uuid',
             isNullable: false,
           },
           {
