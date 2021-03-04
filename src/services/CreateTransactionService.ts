@@ -3,7 +3,6 @@ import AppError from '../errors/AppError';
 
 import Transaction from '../models/Transaction';
 import TransactionsRepository from '../repositories/TransactionsRepository';
-
 import CreateCategoryService from './CreateCategoryService';
 
 interface Request {
@@ -21,6 +20,11 @@ class CreateTransactionService {
     titleCategory,
   }: Request): Promise<Transaction> {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
+    const transactionsAndBalance = await transactionsRepository.getTransactions();
+
+    if (type === 'outcome' && transactionsAndBalance.balance.income < value) {
+      throw new AppError('Valor de saida maior que saldo.', 400);
+    }
 
     const createCategoryService = new CreateCategoryService();
     const category = await createCategoryService.execute({
