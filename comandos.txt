@@ -1,0 +1,7 @@
+Módulo 2
+criação do container docker
+docker postgres: docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+
+Configuração do arquivo typeorm
+Instalação das bibliotecas de conexão com postgres
+ - yarn add typeorm pg
